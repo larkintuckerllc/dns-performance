@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-3
+  labels:
+    app: app-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-3
+  template:
+    metadata:
+      labels:
+        app: app-3
+    spec:
+      containers:
+      - name: node
+        image: sckmkny/dns-performance:0.1.0
+        ports:
+        - name: node
+          containerPort: 3000
+        env:
+        - name: URL
+          value: "http://nginx.default.svc.cluster.local"
+      dnsConfig:
+        options:
+          - name: ndots
+            value: "1"
