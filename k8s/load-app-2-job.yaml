@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: load-app-2
+spec:
+  template:
+    spec:
+      containers:
+      - name: fortio
+        args:
+        - load
+        - -qps=10
+        - -t=30s
+        - http://app-2/
+        image: fortio/fortio
+      restartPolicy: Never
+
